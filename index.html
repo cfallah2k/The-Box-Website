@@ -1,0 +1,4850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Box | World-Class AI-Powered Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Variables */
+        :root {
+            /* Light Theme */
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #93c5fd;
+            --accent-color: #f59e0b;
+            --accent-dark: #e67e22;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 4px;
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+        }
+
+        .dark-mode {
+            /* Dark Theme */
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #1e40af;
+            --accent-color: #f59e0b;
+            --accent-dark: #e67e22;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #4b5563;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: var(--radius-full);
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: white;
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+            border-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .text-primary {
+            color: var(--primary-color);
+        }
+
+        .text-accent {
+            color: var(--accent-color);
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid var(--bg-tertiary);
+            border-top: 8px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-secondary);
+            position: relative;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-primary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 0.5rem 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--primary-color);
+            padding-left: 1.75rem;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .hamburger {
+            display: none;
+            width: 30px;
+            height: 20px;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-primary);
+            transition: var(--transition);
+            border-radius: var(--radius-full);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background-color: var(--bg-primary);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 1000;
+            padding: 6rem 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-nav-item {
+            position: relative;
+        }
+
+        .mobile-nav-link {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-nav-link:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--primary-color);
+        }
+
+        .mobile-dropdown-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding-left: 1rem;
+        }
+
+        .mobile-dropdown-menu.active {
+            max-height: 500px;
+        }
+
+        .mobile-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            border-radius: var(--radius);
+        }
+
+        .mobile-dropdown-menu a:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--primary-color);
+        }
+
+        .mobile-nav-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .mobile-theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+        }
+
+        .theme-toggle-text {
+            font-weight: 600;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 50%;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            animation: fadeInDown 1s ease;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-title span {
+            display: inline-block;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1s ease 0.3s both;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-btns .btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid white;
+        }
+
+        .hero-btns .btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--primary-dark);
+        }
+
+        .hero-btns .btn-outline {
+            background-color: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .hero-btns .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-color);
+            border-radius: var(--radius-full);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 50%;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .hero-image-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-primary);
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transform: translateZ(20px);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05) translateZ(20px);
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+        }
+
+        .hero-scroll-indicator span {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-scroll-indicator i {
+            font-size: 1.5rem;
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Interactive Background Elements */
+        .interactive-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-light), transparent 70%);
+            opacity: 0.1;
+            filter: blur(40px);
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            color: white;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover .feature-icon {
+            background-color: white;
+            color: var(--primary-color);
+            transform: rotateY(180deg);
+        }
+
+        .feature-card:hover .feature-title,
+        .feature-card:hover .feature-desc {
+            color: white;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-light);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        /* Courses Section */
+        .courses {
+            background-color: var(--bg-primary);
+            position: relative;
+        }
+
+        .courses-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            background-color: var(--bg-tertiary);
+            border: none;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-img {
+            height: 200px;
+            background-color: var(--bg-tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .course-card:hover .course-img img {
+            transform: scale(1.05);
+        }
+
+        .course-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .instructor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background-color: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .instructor-name {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .course-price {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .course-price .original {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slider {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 1rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-size: 5rem;
+            color: var(--bg-tertiary);
+            font-family: serif;
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            font-size: 1.125rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-full);
+            background-color: var(--bg-tertiary);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: var(--radius-full);
+            background-color: var(--bg-tertiary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .testimonial-dot.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* AI Learning Section */
+        .ai-learning {
+            background-color: var(--bg-primary);
+        }
+
+        .ai-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .ai-content {
+            flex: 1;
+        }
+
+        .ai-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .ai-image img {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .ai-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .ai-features {
+            margin-top: 2rem;
+        }
+
+        .ai-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-light);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .ai-feature-text h4 {
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .ai-feature-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* University Partners Section */
+        .partners {
+            background-color: var(--bg-secondary);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .partner-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .partner-logo {
+            max-width: 100%;
+            max-height: 80px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .partner-card:hover .partner-logo {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Download App Section */
+        .download-app {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .download-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .download-content {
+            flex: 1;
+        }
+
+        .download-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .download-desc {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .download-btns {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            color: white;
+            transition: var(--transition);
+        }
+
+        .download-btn:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .download-btn img {
+            height: 40px;
+        }
+
+        .qr-code {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .qr-code img {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+        }
+
+        .qr-code-text {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .download-image {
+            flex: 1;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .download-image img {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* FAQ Section */
+        .faq {
+            background-color: var(--bg-primary);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background-color: var(--bg-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-question {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Subscription Plans */
+        .plans {
+            background-color: var(--bg-secondary);
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .plan-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .plan-card.popular {
+            border: 2px solid var(--primary-color);
+        }
+
+        .plan-card.popular::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .plan-features {
+            margin-bottom: 2rem;
+        }
+
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .plan-feature i {
+            color: var(--success-color);
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .plan-card.popular .plan-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .plan-card:not(.popular) .plan-btn {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .plan-card.popular .plan-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .plan-card:not(.popular) .plan-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* Search Section */
+        .search-courses {
+            background-color: var(--bg-primary);
+            padding: 3rem 0;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 50px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--bg-primary);
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-light);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .contact-text h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* New Sections */
+        .collaborate-section {
+            background-color: var(--bg-secondary);
+            padding: 6rem 0;
+        }
+
+        .collaborate-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .collaborate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .collaborate-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .collaborate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .collaborate-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .collaborate-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .collaborate-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .video-library {
+            background-color: var(--bg-primary);
+            padding: 6rem 0;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            background-color: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .play-button {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .video-content {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .insights-section {
+            background-color: var(--bg-secondary);
+            padding: 6rem 0;
+        }
+
+        .insights-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .insights-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .insights-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .insights-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .insights-image {
+            height: 200px;
+            background-color: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .insights-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .insights-card:hover .insights-image img {
+            transform: scale(1.05);
+        }
+
+        .insights-content {
+            padding: 1.5rem;
+        }
+
+        .insights-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .insights-title {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .insights-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .brands-section {
+            background-color: var(--bg-primary);
+            padding: 4rem 0;
+        }
+
+        .brands-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .brand-logo {
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: var(--transition);
+            max-height: 60px;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        .brand-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col:first-child {
+            grid-column: 1 / -1;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .footer-about {
+            max-width: 400px;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius) 0 0 var(--radius);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .newsletter-btn {
+            padding: 0 1.25rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* AI Chatbot - Modern Redesign */
+        .chatbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 2rem;
+            width: 380px;
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            z-index: 999;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-container.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chatbot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .chatbot-title {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chatbot-title i {
+            font-size: 1.25rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .chatbot-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-body {
+            flex: 1;
+            height: 400px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chatbot-message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .chatbot-message.bot {
+            align-self: flex-start;
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border-bottom-left-radius: 0;
+        }
+
+        .chatbot-message.user {
+            align-self: flex-end;
+            background: var(--gradient-primary);
+            color: white;
+            border-bottom-right-radius: 0;
+        }
+
+        .chatbot-message-time {
+            position: absolute;
+            bottom: -18px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .chatbot-message.bot .chatbot-message-time {
+            left: 0;
+        }
+
+        .chatbot-message.user .chatbot-message-time {
+            right: 0;
+            color: var(--text-secondary);
+        }
+
+        .chatbot-input-container {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-secondary);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input-field {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .chatbot-input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .chatbot-send {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-send:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .chatbot-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow-xl);
+            animation: pulse 2s infinite;
+            border: none;
+        }
+
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-btn i {
+            font-size: 1.5rem;
+        }
+
+        /* Chatbot typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0.5rem 1rem;
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            width: fit-content;
+            margin-bottom: 1rem;
+            border-bottom-left-radius: 0;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-secondary);
+            border-radius: 50%;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        /* Floating Cursor Effect */
+        .cursor-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(37, 99, 235, 0.3);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: multiply;
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        .cursor-effect.active {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* New Sections for Enhanced Features */
+        
+        /* Student Work Slideshow */
+        .student-work {
+            background-color: var(--bg-primary);
+            padding: 6rem 0;
+        }
+        
+        .student-slideshow {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .student-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .student-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .student-slide img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+        
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 2rem;
+        }
+        
+        .slide-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slide-description {
+            max-width: 800px;
+            margin-bottom: 1rem;
+        }
+        
+        .student-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 10;
+        }
+        
+        .student-nav-btn {
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .student-nav-btn:hover {
+            background: rgba(255,255,255,0.5);
+        }
+        
+        .student-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .student-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .student-dot.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        /* Cookie Consent Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .cookie-banner.active {
+            transform: translateY(0);
+        }
+        
+        .cookie-text {
+            flex: 1;
+            min-width: 300px;
+            color: var(--text-primary);
+        }
+        
+        .cookie-btns {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Waitlist Forms */
+        .waitlist-section {
+            background-color: var(--bg-secondary);
+            padding: 6rem 0;
+        }
+        
+        .waitlist-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .waitlist-tab {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--bg-tertiary);
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .waitlist-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .waitlist-forms {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .waitlist-form {
+            display: none;
+            background-color: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        
+        .waitlist-form.active {
+            display: block;
+        }
+        
+        .waitlist-form h3 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background-color: var(--bg-secondary);
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        /* Cohort Program Section */
+        .cohort-section {
+            background-color: var(--bg-primary);
+            padding: 6rem 0;
+        }
+        
+        .cohort-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .cohort-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            padding-left: 50px;
+        }
+        
+        .cohort-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background-color: var(--primary-light);
+        }
+        
+        .cohort-phase {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .cohort-phase:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .phase-icon {
+            position: absolute;
+            left: -50px;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .phase-content {
+            padding-left: 2rem;
+        }
+        
+        .phase-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .phase-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .phase-description {
+            color: var(--text-secondary);
+        }
+        
+        .cohort-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .cohort-benefit {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        
+        .benefit-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-title i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .ai-container, .download-container {
+                flex-direction: column;
+            }
+            
+            .ai-image, .download-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-container {
+                flex-direction: column;
+            }
+            
+            .hero-content {
+                order: 2;
+                text-align: center;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                order: 1;
+                margin-bottom: 2rem;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .student-slide img {
+                height: 400px;
+            }
+            
+            .slide-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions .btn {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .testimonial-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .download-btns {
+                flex-direction: column;
+            }
+            
+            .chatbot-container {
+                width: 90%;
+                right: 5%;
+                bottom: 80px;
+            }
+            
+            .student-slide img {
+                height: 300px;
+            }
+            
+            .slide-content {
+                padding: 1rem;
+            }
+            
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .cookie-btns {
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 1.75rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btns .btn {
+                width: 100%;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .features-grid, .courses-grid, .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .student-slide img {
+                height: 250px;
+            }
+            
+            .slide-title {
+                font-size: 1.25rem;
+            }
+            
+            .cohort-timeline {
+                padding-left: 30px;
+            }
+            
+            .cohort-timeline::before {
+                left: 15px;
+            }
+            
+            .phase-icon {
+                left: -30px;
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Advanced Page Loader -->
+<div id="preloader" class="page-loader" aria-live="polite" aria-busy="true">
+    <div class="loader-visuals">
+        <img src="https://via.placeholder.com/80x80?text=The+Box" alt="The Box Logo" class="loader-logo" />
+        <div class="loader-animated-circles">
+            <span class="circle circle1"></span>
+            <span class="circle circle2"></span>
+            <span class="circle circle3"></span>
+        </div>
+    </div>
+    <div class="loader-progress">
+        <div class="loader-progress-bar"></div>
+    </div>
+    <div class="loader-text">
+        <span id="loader-message">Loading The Box...</span>
+    </div>
+    <div class="loader-tips">
+        <span id="loader-tip">Tip: The Box brings world-class AI-powered education to you.</span>
+    </div>
+</div>
+<style>
+    .page-loader {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: var(--bg-primary, #fff);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s;
+    }
+    .loader-visuals {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .loader-logo {
+        width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+        margin-bottom: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .loader-animated-circles {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    .loader-animated-circles .circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--primary-color, #2563eb);
+        opacity: 0.5;
+        animation: loader-bounce 1.2s infinite;
+    }
+    .loader-animated-circles .circle1 { animation-delay: 0s; }
+    .loader-animated-circles .circle2 { animation-delay: 0.2s; }
+    .loader-animated-circles .circle3 { animation-delay: 0.4s; }
+    @keyframes loader-bounce {
+        0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+        40% { transform: scale(1.2); opacity: 1; }
+    }
+    .loader-progress {
+        width: 120px;
+        height: 6px;
+        background: var(--bg-tertiary, #f3f4f6);
+        border-radius: 3px;
+        margin: 18px 0 8px 0;
+        overflow: hidden;
+    }
+    .loader-progress-bar {
+        width: 0;
+        height: 100%;
+        background: var(--primary-color, #2563eb);
+        border-radius: 3px;
+        animation: loader-progress-bar 2.2s linear infinite;
+    }
+    @keyframes loader-progress-bar {
+        0% { width: 0; }
+        60% { width: 100%; }
+        100% { width: 0; }
+    }
+    .loader-text {
+        font-size: 1.1rem;
+        color: var(--text-primary, #1f2937);
+        margin-bottom: 6px;
+        text-align: center;
+        min-height: 22px;
+    }
+    .loader-tips {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--text-secondary, #4b5563);
+        opacity: 0.7;
+        text-align: center;
+        min-height: 18px;
+    }
+    @media (max-width: 600px) {
+        .page-loader { padding: 2rem 1rem; }
+        .loader-logo { width: 48px; height: 48px; }
+        .loader-progress { width: 80px; }
+    }
+</style>
+<script>
+    // Loader messages and tips
+    document.addEventListener('DOMContentLoaded', function() {
+        const loaderMessages = [
+            "Loading The Box...",
+            "Connecting to your learning journey...",
+            "Empowering your education...",
+            "Securing your experience...",
+            "Optimizing for your device...",
+            "Almost there..."
+        ];
+        const loaderTips = [
+            "Tip: The Box adapts to your learning style with AI.",
+            "Tip: Switch to dark mode anytime from the top right.",
+            "Tip: Try our chatbot for instant help and answers.",
+            "Tip: Explore courses from top universities worldwide.",
+            "Tip: Your progress is always saved securely.",
+            "Tip: Join our global student community."
+        ];
+        let msgIdx = 0, tipIdx = 0;
+        const loaderMsg = document.getElementById('loader-message');
+        const loaderTip = document.getElementById('loader-tip');
+        setInterval(() => {
+            msgIdx = (msgIdx + 1) % loaderMessages.length;
+            tipIdx = (tipIdx + 1) % loaderTips.length;
+            if (loaderMsg) loaderMsg.textContent = loaderMessages[msgIdx];
+            if (loaderTip) loaderTip.textContent = loaderTips[tipIdx];
+        }, 2200);
+    });
+</script>
+
+<!-- Offline Notification (Advanced) -->
+<div class="offline-notification" id="offlineNotification" role="alert" aria-live="assertive" style="display:none;">
+    <div class="offline-icon">
+        <i class="fas fa-wifi-slash"></i>
+    </div>
+    <div class="offline-content">
+        <strong>You're Offline!</strong>
+        <span>Some features may not be available. We'll reconnect automatically when your connection is restored.</span>
+        <div class="offline-actions">
+            <button class="btn btn-outline retry-connection" onclick="window.location.reload();">
+                <i class="fas fa-redo"></i> Retry Now
+            </button>
+            <button class="btn btn-outline" onclick="navigator.onLine && location.reload();">
+                <i class="fas fa-sync-alt"></i> Check Connection
+            </button>
+            <a href="helpcenterpage.html" class="btn btn-primary">
+                <i class="fas fa-question-circle"></i> Get Help
+            </a>
+        </div>
+        <div class="offline-tips">
+            <small>
+                <i class="fas fa-lightbulb"></i>
+                Tip: Check your Wi-Fi or mobile data. If the issue persists, try restarting your device or router.
+            </small>
+        </div>
+    </div>
+</div>
+<style>
+    .offline-notification {
+        position: fixed;
+        top: 0; left: 0; width: 100vw;
+        background: var(--error-color, #ef4444);
+        color: #fff;
+        z-index: 10001;
+        display: flex;
+        align-items: flex-start;
+        padding: 1.2rem 2rem;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        gap: 1.5rem;
+        transition: top 0.3s;
+    }
+    .offline-icon {
+        font-size: 2.2rem;
+        margin-right: 1rem;
+        margin-top: 0.2rem;
+    }
+    .offline-content strong {
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+    .offline-content span {
+        display: block;
+        margin-bottom: 0.7rem;
+        font-size: 1rem;
+    }
+    .offline-actions {
+        display: flex;
+        gap: 0.7rem;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+    }
+    .offline-tips {
+        margin-top: 0.5rem;
+        font-size: 0.95em;
+        opacity: 0.85;
+    }
+    @media (max-width: 600px) {
+        .offline-notification { flex-direction: column; padding: 1rem; gap: 0.5rem; }
+        .offline-icon { font-size: 1.6rem; margin-right: 0.5rem; }
+        .offline-actions { flex-direction: column; gap: 0.5rem; }
+    }
+</style>
+<script>
+    // Show/hide offline notification
+    function updateOfflineNotification() {
+        const offline = !navigator.onLine;
+        const notif = document.getElementById('offlineNotification');
+        if (notif) notif.style.display = offline ? 'flex' : 'none';
+    }
+    window.addEventListener('offline', updateOfflineNotification);
+    window.addEventListener('online', updateOfflineNotification);
+    document.addEventListener('DOMContentLoaded', updateOfflineNotification);
+</script>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container container">
+            <a href="#" class="logo">
+                <img src="https://via.placeholder.com/40" alt="The Box Logo" class="logo-img">
+                <span class="logo-text">The Box</span>
+            </a>
+
+            <nav class="nav-links">
+                <div class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#features" class="nav-link">Features <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#features">All Features</a>
+                        <a href="#ai-learning">AI Learning</a>
+                        <a href="#courses">Course Catalog</a>
+                        <a href="#plans">Subscription Plans</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#courses" class="nav-link">Courses <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#courses">Course Home</a>
+                        <a href="#">Short Courses</a>
+                        <a href="#">Webinars</a>
+                        <a href="#">Credit Transfer</a>
+                        <a href="#">Apply Now</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#resources" class="nav-link">Resources <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#resources">Resource Hub</a>
+                        <a href="#">Blogs</a>
+                        <a href="#">Research Journal</a>
+                        <a href="#">Video Gallery</a>
+                        <a href="#">Refer and Earn</a>
+                        <a href="#">Partner With Us</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#students" class="nav-link">Students <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#students">Our Students</a>
+                        <a href="#">Alumni</a>
+                        <a href="#">Student Reviews</a>
+                        <a href="#">Photo Gallery</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </div>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="Loginpage" class="btn btn-outline">Login</a>
+                <a href="Signuppage.html" class="btn btn-primary">Sign Up</a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-links">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-link">
+                    <span>Features</span>
+                    <button class="mobile-dropdown-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mobile-dropdown-menu">
+                    <a href="#features">All Features</a>
+                    <a href="#ai-learning">AI Learning</a>
+                    <a href="#courses">Course Catalog</a>
+                    <a href="#plans">Subscription Plans</a>
+                </div>
+            </div>
+            
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-link">
+                    <span>Courses</span>
+                    <button class="mobile-dropdown-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mobile-dropdown-menu">
+                    <a href="#courses">Course Home</a>
+                    <a href="#">Short Courses</a>
+                    <a href="#">Webinars</a>
+                    <a href="#">Credit Transfer</a>
+                    <a href="#">Apply Now</a>
+                </div>
+            </div>
+            
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-link">
+                    <span>Resources</span>
+                    <button class="mobile-dropdown-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mobile-dropdown-menu">
+                    <a href="#resources">Resource Hub</a>
+                    <a href="#">Blogs</a>
+                    <a href="#">Research Journal</a>
+                    <a href="#">Video Gallery</a>
+                    <a href="#">Refer and Earn</a>
+                    <a href="#">Partner With Us</a>
+                </div>
+            </div>
+            
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-link">
+                    <span>Students</span>
+                    <button class="mobile-dropdown-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mobile-dropdown-menu">
+                    <a href="#students">Our Students</a>
+                    <a href="#">Alumni</a>
+                    <a href="#">Student Reviews</a>
+                    <a href="#">Photo Gallery</a>
+                </div>
+            </div>
+            
+            <a href="#faq" class="mobile-nav-link">FAQ</a>
+        </div>
+        
+        <div class="mobile-theme-toggle">
+            <span class="theme-toggle-text">Dark/Light Mode</span>
+            <button class="theme-toggle" id="mobileThemeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-nav-actions">
+            <a href="#" class="btn btn-outline">Login</a>
+            <a href="Signuppage.html" class="btn btn-primary">Sign Up</a>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Floating Particles Background -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Interactive Background Elements -->
+        <div class="interactive-bg">
+            <div class="bg-element" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
+            <div class="bg-element" style="width: 500px; height: 500px; bottom: 10%; right: 5%;"></div>
+        </div>
+        
+        <div class="hero-container container">
+            <div class="hero-content">
+                <h1 class="hero-title">Transforming <span>Education</span> Through Technology</h1>
+                <p class="hero-subtitle">The Box is a premier global learning platform partnering with top universities to deliver cutting-edge education powered by AI.</p>
+                <div class="hero-btns">
+                    <a href="#courses" class="btn btn-primary btn-lg">Explore Courses</a>
+                    <a href="AIinterface.html" class="btn btn-outline btn-lg">Discover AI Learning</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">University Partners</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500K+</span>
+                        <span class="stat-label">Students Worldwide</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Completion Rate</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Students learning with The Box platform">
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="hero-scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose The Box</h2>
+                <p class="section-subtitle">Our platform combines world-class education with cutting-edge technology to deliver unparalleled learning experiences.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="feature-title">Accredited Programs</h3>
+                    <p class="feature-desc">Earn recognized certificates and degrees from our prestigious university partners.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI-Powered Learning</h3>
+                    <p class="feature-desc">Our adaptive learning platform personalizes content to match your pace and style.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="feature-title">Hands-On Projects</h3>
+                    <p class="feature-desc">Apply knowledge through real-world projects and build a professional portfolio.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Instructors</h3>
+                    <p class="feature-desc">Learn from leading professors and industry professionals from top institutions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="feature-title">Career Services</h3>
+                    <p class="feature-desc">Access career coaching, resume reviews, and job placement assistance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="feature-title">Global Community</h3>
+                    <p class="feature-desc">Connect with students and professionals from around the world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborate Section -->
+    <section class="section collaborate-section" id="collaborate">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Collaborate, Learn & Network Globally</h2>
+                <p class="section-subtitle">Achieve higher education while balancing full-time jobs with our Flexible Courses, Personalized Support and Networking Opportunities.</p>
+            </div>
+
+            <div class="collaborate-grid">
+                <div class="collaborate-card">
+                    <div class="collaborate-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="collaborate-title">Work With Expert Personal Tutor</h3>
+                    <p class="collaborate-desc">Apart from the course learning resources developed by the industry experts and academicians, the learning is supported by one to one sessions with our expert personal tutors who will help the learners to clear their doubts and move forward.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+
+                <div class="collaborate-card">
+                    <div class="collaborate-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="collaborate-title">Grow Your Network Globally</h3>
+                    <p class="collaborate-desc">Join our live discussions on business case scenarios and relevant topics moderated by our faculty and participate in discussion forums available on our learning portal. Learn from your peers and develop a global network.</p>
+                    <a href="#" class="btn btn-primary">Join Community</a>
+                </div>
+
+                <div class="collaborate-card">
+                    <div class="collaborate-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="collaborate-title">Engage With Industry Experts</h3>
+                    <p class="collaborate-desc">Our Live Webinars give you an opportunity to learn from industry experts. Engage with them directly through Q&A sessions and interactive workshops to gain practical insights.</p>
+                    <a href="#" class="btn btn-primary">View Webinars</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section class="section waitlist-section" id="waitlist">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Join Our Waitlist</h2>
+                <p class="section-subtitle">Be the first to know when we launch new programs and features tailored for your needs.</p>
+            </div>
+            
+            <div class="waitlist-tabs">
+                <button class="waitlist-tab active" data-tab="student">For Students</button>
+                <button class="waitlist-tab" data-tab="teacher">For Teachers</button>
+                <button class="waitlist-tab" data-tab="school">For Schools</button>
+            </div>
+            
+            <div class="waitlist-forms">
+                <div class="waitlist-form active" id="studentForm">
+                    <h3>Student Waitlist</h3>
+                    <form id="studentWaitlistForm">
+                        <div class="form-group">
+                            <label for="studentName">Full Name</label>
+                            <input type="text" id="studentName" name="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Email Address</label>
+                            <input type="email" id="studentEmail" name="studentEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentInterest">Program Interest</label>
+                            <select id="studentInterest" name="studentInterest" required>
+                                <option value="">Select a program</option>
+                                <option value="ai">AI & Machine Learning</option>
+                                <option value="business">Business Administration</option>
+                                <option value="cs">Computer Science</option>
+                                <option value="design">Design & Arts</option>
+                                <option value="health">Health Sciences</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentGoals">Learning Goals</label>
+                            <textarea id="studentGoals" name="studentGoals" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Join Waitlist</button>
+                    </form>
+                </div>
+                
+                <div class="waitlist-form" id="teacherForm">
+                    <h3>Teacher Waitlist</h3>
+                    <form id="teacherWaitlistForm">
+                        <div class="form-group">
+                            <label for="teacherName">Full Name</label>
+                            <input type="text" id="teacherName" name="teacherName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherEmail">Email Address</label>
+                            <input type="email" id="teacherEmail" name="teacherEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherExpertise">Area of Expertise</label>
+                            <input type="text" id="teacherExpertise" name="teacherExpertise" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherExperience">Years of Experience</label>
+                            <input type="number" id="teacherExperience" name="teacherExperience" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacherInterest">Teaching Interest</label>
+                            <textarea id="teacherInterest" name="teacherInterest" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Join Waitlist</button>
+                    </form>
+                </div>
+                
+                <div class="waitlist-form" id="schoolForm">
+                    <h3>School Waitlist</h3>
+                    <form id="schoolWaitlistForm">
+                        <div class="form-group">
+                            <label for="schoolName">Institution Name</label>
+                            <input type="text" id="schoolName" name="schoolName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolContact">Contact Person</label>
+                            <input type="text" id="schoolContact" name="schoolContact" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolEmail">Email Address</label>
+                            <input type="email" id="schoolEmail" name="schoolEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolType">Institution Type</label>
+                            <select id="schoolType" name="schoolType" required>
+                                <option value="">Select type</option>
+                                <option value="k12">K-12 School</option>
+                                <option value="college">College/University</option>
+                                <option value="vocational">Vocational School</option>
+                                <option value="corporate">Corporate Training</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="schoolInterest">Partnership Interest</label>
+                            <textarea id="schoolInterest" name="schoolInterest" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Join Waitlist</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cohort Program Section -->
+    <section class="section cohort-section" id="cohort">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Yearly Cohort Program</h2>
+                <p class="section-subtitle">Join our exclusive cohort-based learning experience with structured timelines and community support.</p>
+            </div>
+            
+            <div class="cohort-timeline">
+                <div class="cohort-phase">
+                    <div class="phase-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="phase-content">
+                        <h4 class="phase-title">Discovery Phase</h4>
+                        <p class="phase-date">January - March</p>
+                        <p class="phase-description">Explore program options, attend info sessions, and connect with potential cohort members.</p>
+                    </div>
+                </div>
+                
+                <div class="cohort-phase">
+                    <div class="phase-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="phase-content">
+                        <h4 class="phase-title">Application Period</h4>
+                        <p class="phase-date">April - May</p>
+                        <p class="phase-description">Submit your application, complete any prerequisites, and prepare for the selection process.</p>
+                    </div>
+                </div>
+                
+                <div class="cohort-phase">
+                    <div class="phase-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="phase-content">
+                        <h4 class="phase-title">Cohort Formation</h4>
+                        <p class="phase-date">June</p>
+                        <p class="phase-description">Meet your cohort members, establish team norms, and begin orientation activities.</p>
+                    </div>
+                </div>
+                
+                <div class="cohort-phase">
+                    <div class="phase-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="phase-content">
+                        <h4 class="phase-title">Learning Phase</h4>
+                        <p class="phase-date">July - November</p>
+                        <p class="phase-description">Engage in intensive learning, collaborative projects, and mentorship sessions.</p>
+                    </div>
+                </div>
+                
+                <div class="cohort-phase">
+                    <div class="phase-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="phase-content">
+                        <h4 class="phase-title">Graduation & Showcase</h4>
+                        <p class="phase-date">December</p>
+                        <p class="phase-description">Present your capstone project, celebrate achievements, and join our alumni network.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cohort-benefits">
+                <div class="cohort-benefit">
+                    <div class="benefit-title">
+                        <i class="fas fa-users"></i>
+                        <h3>Community Learning</h3>
+                    </div>
+                    <p>Join a dedicated group of peers who progress through the program together, providing mutual support and accountability.</p>
+                </div>
+                
+                <div class="cohort-benefit">
+                    <div class="benefit-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Structured Timeline</h3>
+                    </div>
+                    <p>Follow a carefully designed schedule with clear milestones to keep you on track and motivated throughout the program.</p>
+                </div>
+                
+                <div class="cohort-benefit">
+                    <div class="benefit-title">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h3>Dedicated Mentors</h3>
+                    </div>
+                    <p>Receive personalized guidance from industry experts who are committed to your success throughout the cohort journey.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#waitlist" class="btn btn-primary btn-lg">Join the Next Cohort</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Library Section -->
+    <section class="section video-library" id="video-library">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Video Library</h2>
+                <p class="section-subtitle">Our Video Gallery, your gateway to UniAthena's world of the Learning journey. Explore a diverse collection of captivating and informative videos regarding our short courses, academic courses, webinars, student testimonials and much more.</p>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail" style="aspect-ratio:16/9; height:auto;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ScMzIvxBSi4?modestbranding=1&rel=0&showinfo=1" title="EHS 2025: The Future of Safety & Innovation" frameborder="0" allowfullscreen style="width:100%;height:100%;aspect-ratio:16/9;"></iframe>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumbnail" style="aspect-ratio:16/9; height:auto;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?modestbranding=1&rel=0&showinfo=1" title="The Research-Driven Executive: Leveraging a DBA for Success" frameborder="0" allowfullscreen style="width:100%;height:100%;aspect-ratio:16/9;"></iframe>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumbnail" style="aspect-ratio:16/9; height:auto;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY?modestbranding=1&rel=0&showinfo=1" title="Open House - Doctorate of Business Administration" frameborder="0" allowfullscreen style="width:100%;height:100%;aspect-ratio:16/9;"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#" class="btn btn-primary btn-lg">View More Videos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section class="section insights-section" id="insights">
+        <div class="container">
+            <div class="insights-header">
+                <div class="section-header" style="text-align: left; margin: 0;">
+                    <h2 class="section-title">From Our Insights</h2>
+                    <p class="section-subtitle">We keep you informed and engaged. Blogs on diverse subjects. Candid interviews of students and employees. Reviews of books that can change your life. Testimonials from our satisfied students.</p>
+                </div>
+                <a href="#" class="btn btn-outline">View All</a>
+            </div>
+
+            <div class="insights-grid">
+                <div class="insights-card">
+                    <div class="insights-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Most in Demand Jobs in Saudi Arabia Vision 2030">
+                    </div>
+                    <div class="insights-content">
+                        <span class="insights-category">Career Guide</span>
+                        <h3 class="insights-title">Most in Demand Jobs in Saudi Arabia Vision 2030</h3>
+                        <p>Introduction to Vision 2030 and how it's transforming the Saudi job market with advantages of pursuing jobs in emerging sectors.</p>
+                        <div class="insights-meta">
+                            <span>Munazzah Ali</span>
+                            <span>3 MINS READ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Top 5 Most Demanding Courses in South Africa">
+                    </div>
+                    <div class="insights-content">
+                        <span class="insights-category">Education</span>
+                        <h3 class="insights-title">Top 5 Most Demanding Courses in South Africa</h3>
+                        <p>Discover the most sought-after courses that are shaping careers in South Africa's dynamic job market.</p>
+                        <div class="insights-meta">
+                            <span>John Smith</span>
+                            <span>5 MINS READ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="How Companies Use Data-Driven Pricing Strategies">
+                    </div>
+                    <div class="insights-content">
+                        <span class="insights-category">Business</span>
+                        <h3 class="insights-title">How Companies Use Data-Driven Pricing Strategies to Maximize Profits</h3>
+                        <p>Learn how modern businesses leverage data analytics to optimize their pricing models and increase profitability.</p>
+                        <div class="insights-meta">
+                            <span>Sarah Johnson</span>
+                            <span>7 MINS READ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insights-grid" style="margin-top: 2rem;">
+                <div class="insights-card">
+                    <div class="insights-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="How To Prepare For An EHS Job Interview">
+                    </div>
+                    <div class="insights-content">
+                        <span class="insights-category">Career Tips</span>
+                        <h3 class="insights-title">How To Prepare For An EHS Job Interview</h3>
+                        <p>Essential tips and strategies to ace your Environment, Health and Safety job interview with confidence.</p>
+                        <div class="insights-meta">
+                            <span>David Wilson</span>
+                            <span>4 MINS READ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Best Skills to Learn in 2025">
+                    </div>
+                    <div class="insights-content">
+                        <span class="insights-category">Trending</span>
+                        <h3 class="insights-title">Best Skills to Learn in 2025</h3>
+                        <p>Future-proof your career by acquiring these in-demand skills that will dominate the job market in 2025.</p>
+                        <div class="insights-meta">
+                          <span>Emily Chen</span>
+                          <span>6 MINS READ</span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="insights-card">
+                  <div class="insights-image">
+                      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Student Success Story">
+                  </div>
+                  <div class="insights-content">
+                      <span class="insights-category">Student Story</span>
+                      <h3 class="insights-title">From Retail to Tech: How Priya Transitioned Careers with Our Program</h3>
+                      <p>Read how Priya transformed her career from retail management to software development in just 8 months.</p>
+                      <div class="insights-meta">
+                          <span>Priya Patel</span>
+                          <span>8 MINS READ</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section class="section courses" id="courses">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Explore Our Courses</h2>
+              <p class="section-subtitle">Choose from our wide range of courses designed to help you achieve your career goals.</p>
+          </div>
+
+          <div class="courses-filter">
+              <button class="filter-btn active" data-filter="all">All Courses</button>
+              <button class="filter-btn" data-filter="business">Business</button>
+              <button class="filter-btn" data-filter="technology">Technology</button>
+              <button class="filter-btn" data-filter="health">Health</button>
+              <button class="filter-btn" data-filter="design">Design</button>
+              <button class="filter-btn" data-filter="science">Science</button>
+          </div>
+
+          <div class="courses-grid">
+              <div class="course-card" data-category="business">
+                  <div class="course-img">
+                      <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1511&q=80" alt="MBA Essentials">
+                      <span class="course-category">Business</span>
+                  </div>
+                  <div class="course-content">
+                      <h3 class="course-title">MBA Essentials</h3>
+                      <div class="course-instructor">
+                          <div class="instructor-avatar">
+                              <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Dr. Sarah Johnson">
+                          </div>
+                          <span class="instructor-name">Dr. Sarah Johnson</span>
+                      </div>
+                      <p>Master the core concepts of business administration in this comprehensive program.</p>
+                      <div class="course-meta">
+                          <div class="course-rating">
+                              <i class="fas fa-star"></i>
+                              <span>4.8 (1.2k)</span>
+                          </div>
+                          <div class="course-price">
+                              <span class="original">$1,200</span>
+                              $799
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="course-card" data-category="technology">
+                  <div class="course-img">
+                      <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="AI & Machine Learning">
+                      <span class="course-category">Technology</span>
+                  </div>
+                  <div class="course-content">
+                      <h3 class="course-title">AI & Machine Learning</h3>
+                      <div class="course-instructor">
+                          <div class="instructor-avatar">
+                              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Prof. David Chen">
+                          </div>
+                          <span class="instructor-name">Prof. David Chen</span>
+                      </div>
+                      <p>Learn to build intelligent systems with Python and TensorFlow in this hands-on course.</p>
+                      <div class="course-meta">
+                          <div class="course-rating">
+                              <i class="fas fa-star"></i>
+                              <span>4.9 (2.4k)</span>
+                          </div>
+                          <div class="course-price">
+                              <span class="original">$1,500</span>
+                              $999
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="course-card" data-category="health">
+                  <div class="course-img">
+                      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Public Health Management">
+                      <span class="course-category">Health</span>
+                  </div>
+                  <div class="course-content">
+                      <h3 class="course-title">Public Health Management</h3>
+                      <div class="course-instructor">
+                          <div class="instructor-avatar">
+                              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dr. Maria Rodriguez">
+                          </div>
+                          <span class="instructor-name">Dr. Maria Rodriguez</span>
+                      </div>
+                      <p>Develop skills to manage healthcare systems and implement public health policies.</p>
+                      <div class="course-meta">
+                          <div class="course-rating">
+                              <i class="fas fa-star"></i>
+                              <span>4.7 (856)</span>
+                          </div>
+                          <div class="course-price">
+                              <span class="original">$1,100</span>
+                              $699
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="course-card" data-category="design">
+                  <div class="course-img">
+                      <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="UX/UI Design Masterclass">
+                      <span class="course-category">Design</span>
+                  </div>
+                  <div class="course-content">
+                      <h3 class="course-title">UX/UI Design Masterclass</h3>
+                      <div class="course-instructor">
+                          <div class="instructor-avatar">
+                              <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Jessica Wong">
+                          </div>
+                          <span class="instructor-name">Jessica Wong</span>
+                      </div>
+                      <p>From wireframes to prototypes - master the complete design process.</p>
+                      <div class="course-meta">
+                          <div class="course-rating">
+                              <i class="fas fa-star"></i>
+                              <span>4.8 (1.5k)</span>
+                          </div>
+                          <div class="course-price">
+                              <span class="original">$1,300</span>
+                              $899
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="course-card" data-category="science">
+                  <div class="course-img">
+                      <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science Fundamentals">
+                      <span class="course-category">Science</span>
+                  </div>
+                  <div class="course-content">
+                      <h3 class="course-title">Data Science Fundamentals</h3>
+                      <div class="course-instructor">
+                          <div class="instructor-avatar">
+                              <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Dr. Robert Kim">
+                          </div>
+                          <span class="instructor-name">Dr. Robert Kim</span>
+                      </div>
+                      <p>Learn Python, statistics, and machine learning for data analysis.</p>
+                      <div class="course-meta">
+                          <div class="course-rating">
+                              <i class="fas fa-star"></i>
+                              <span>4.9 (3.1k)</span>
+                          </div>
+                          <div class="course-price">
+                              <span class="original">$1,400</span>
+                              $949
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="course-card" data-category="business">
+                  <div class="course-img">
+                      <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Digital Marketing Strategy">
+                      <span class="course-category">Business</span>
+                  </div>
+                  <div class="course-content">
+                      <h3 class="course-title">Digital Marketing Strategy</h3>
+                      <div class="course-instructor">
+                          <div class="instructor-avatar">
+                              <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="Alex Turner">
+                          </div>
+                          <span class="instructor-name">Alex Turner</span>
+                      </div>
+                      <p>Master SEO, social media, and content marketing to grow businesses online.</p>
+                      <div class="course-meta">
+                          <div class="course-rating">
+                              <i class="fas fa-star"></i>
+                              <span>4.7 (980)</span>
+                          </div>
+                          <div class="course-price">
+                              <span class="original">$1,000</span>
+                              $649
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 3rem;">
+              <a href="#" class="btn btn-primary btn-lg">View All Courses</a>
+          </div>
+      </div>
+  </section>
+
+  <!-- AI Learning Section -->
+  <section class="section ai-learning" id="ai-learning">
+      <div class="container">
+          <div class="ai-container">
+              <div class="ai-content">
+                  <div class="section-header" style="text-align: left; margin: 0;">
+                      <h2 class="section-title">Revolutionary AI Learning Experience</h2>
+                      <p class="section-subtitle">Our AI-powered platform adapts to your learning style, pace, and goals for maximum effectiveness.</p>
+                  </div>
+
+                  <div class="ai-features">
+                      <div class="ai-feature">
+                          <div class="ai-feature-icon">
+                              <i class="fas fa-brain"></i>
+                          </div>
+                          <div class="ai-feature-text">
+                              <h4>Adaptive Learning Paths</h4>
+                              <p>Our AI analyzes your strengths and weaknesses to create a personalized curriculum that evolves with you.</p>
+                          </div>
+                      </div>
+
+                      <div class="ai-feature">
+                          <div class="ai-feature-icon">
+                              <i class="fas fa-comments"></i>
+                          </div>
+                          <div class="ai-feature-text">
+                              <h4>24/7 AI Tutor Assistance</h4>
+                              <p>Get instant explanations, examples, and feedback from our AI tutor anytime you need help.</p>
+                          </div>
+                      </div>
+
+                      <div class="ai-feature">
+                          <div class="ai-feature-icon">
+                              <i class="fas fa-chart-line"></i>
+                          </div>
+                          <div class="ai-feature-text">
+                              <h4>Progress Prediction</h4>
+                              <p>Our system forecasts your learning trajectory and suggests optimizations to keep you on track.</p>
+                          </div>
+                      </div>
+
+                      <div class="ai-feature">
+                          <div class="ai-feature-icon">
+                              <i class="fas fa-project-diagram"></i>
+                          </div>
+                          <div class="ai-feature-text">
+                              <h4>Knowledge Mapping</h4>
+                              <p>Visualize how concepts connect across subjects to build deeper understanding.</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div style="margin-top: 2rem;">
+                      <a href="#" class="btn btn-primary btn-lg">Try AI Learning Demo</a>
+                  </div>
+              </div>
+              <div class="ai-image">
+                  <img src="images/image-1-1024x705.webp" alt="AI Learning Platform">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- University Partners Section -->
+  <section class="section partners" id="partners">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Our University Partners</h2>
+              <p class="section-subtitle">Collaborating with world-renowned institutions to deliver exceptional education.</p>
+          </div>
+
+          <div class="partners-grid">
+              <div class="partner-card">
+                  <img src="https://via.placeholder.com/150x60?text=Cambridge" alt="Cambridge University" class="partner-logo">
+              </div>
+              <div class="partner-card">
+                  <img src="https://via.placeholder.com/150x60?text=Stanford" alt="Stanford University" class="partner-logo">
+              </div>
+              <div class="partner-card">
+                  <img src="https://via.placeholder.com/150x60?text=MIT" alt="MIT" class="partner-logo">
+              </div>
+              <div class="partner-card">
+                  <img src="https://via.placeholder.com/150x60?text=Oxford" alt="Oxford University" class="partner-logo">
+              </div>
+              <div class="partner-card">
+                  <img src="https://via.placeholder.com/150x60?text=ETH" alt="ETH Zurich" class="partner-logo">
+              </div>
+              <div class="partner-card">
+                  <img src="https://via.placeholder.com/150x60?text=NUS" alt="National University of Singapore" class="partner-logo">
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Brands Section -->
+  <section class="section brands-section" id="brands">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Trusted By Leading Organizations</h2>
+              <p class="section-subtitle">Our graduates work at top companies worldwide</p>
+          </div>
+
+          <div class="brands-grid">
+              <img src="https://via.placeholder.com/150x60?text=Google" alt="Google" class="brand-logo">
+              <img src="https://via.placeholder.com/150x60?text=Microsoft" alt="Microsoft" class="brand-logo">
+              <img src="https://via.placeholder.com/150x60?text=Amazon" alt="Amazon" class="brand-logo">
+              <img src="https://via.placeholder.com/150x60?text=Apple" alt="Apple" class="brand-logo">
+              <img src="https://via.placeholder.com/150x60?text=Tesla" alt="Tesla" class="brand-logo">
+              <img src="https://via.placeholder.com/150x60?text=IBM" alt="IBM" class="brand-logo">
+          </div>
+      </div>
+  </section>
+
+  <!-- Subscription Plans Section -->
+  <section class="section plans" id="plans">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Flexible Learning Plans</h2>
+              <p class="section-subtitle">Choose the plan that fits your goals and budget. All plans include full course access and AI tutor.</p>
+          </div>
+
+          <div class="plans-grid">
+              <div class="plan-card">
+                  <h3 class="plan-name">Basic</h3>
+                  <div class="plan-price">$29<span>/month</span></div>
+                  <div class="plan-features">
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Access to all courses</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Basic AI tutor support</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Community forums</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Monthly progress reports</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-times"></i>
+                          <span>No certificates</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-times"></i>
+                          <span>No mentor sessions</span>
+                      </div>
+                  </div>
+                  <button class="plan-btn">Get Started</button>
+              </div>
+
+              <div class="plan-card popular">
+                  <h3 class="plan-name">Pro</h3>
+                  <div class="plan-price">$79<span>/month</span></div>
+                  <div class="plan-features">
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Everything in Basic</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Advanced AI tutor</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Course certificates</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>2 mentor sessions/month</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Career services</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-times"></i>
+                          <span>No degree pathways</span>
+                      </div>
+                  </div>
+                  <button class="plan-btn">Get Started</button>
+              </div>
+
+              <div class="plan-card">
+                  <h3 class="plan-name">Premium</h3>
+                  <div class="plan-price">$199<span>/month</span></div>
+                  <div class="plan-features">
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Everything in Pro</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Unlimited mentor sessions</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Degree pathways</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Priority support</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Exclusive events</span>
+                      </div>
+                      <div class="plan-feature">
+                          <i class="fas fa-check"></i>
+                          <span>Personalized coaching</span>
+                      </div>
+                  </div>
+                  <button class="plan-btn">Get Started</button>
+              </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 2rem;">
+              <p>Need help choosing? <a href="#" class="text-primary">Compare plans</a> or <a href="#" class="text-primary">talk to an advisor</a>.</p>
+          </div>
+      </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq" id="faq">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Frequently Asked Questions</h2>
+              <p class="section-subtitle">Find answers to common questions about our platform and programs.</p>
+          </div>
+
+          <div class="faq-container">
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>How does The Box differ from traditional online learning platforms?</span>
+                      <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>The Box combines the rigor of accredited university programs with cutting-edge AI technology to create a truly personalized learning experience. Unlike traditional platforms that offer static content, our system adapts in real-time to your learning style, pace, and goals. We also emphasize project-based learning with real-world applications and provide access to a global community of learners and industry experts.</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>Are the certificates and degrees from The Box recognized?</span>
+                      <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>Yes, all our certificates and degrees are awarded by our accredited university partners and carry the same recognition as their on-campus equivalents. Our programs meet rigorous academic standards and are designed in collaboration with industry leaders to ensure relevance in today's job market. Many of our graduates have successfully used their credentials for career advancement, further education, and professional certification.</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>What kind of support can I expect as a student?</span>
+                      <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>You'll have access to multiple layers of support: 24/7 AI tutor assistance, dedicated academic advisors, subject matter experts, and a global peer community. Depending on your plan, you may also receive career coaching, resume reviews, and interview preparation. Our support team is available via chat, email, and scheduled video calls to ensure you have the help you need to succeed.</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>How much time should I dedicate to my studies?</span>
+                      <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>Most students spend 10-15 hours per week on coursework, but this varies based on your pace and program intensity. Our AI system will recommend an optimal study schedule based on your availability and learning speed. The flexible nature of our platform allows you to accelerate or slow down as needed to balance your studies with other commitments.</p>
+                  </div>
+              </div>
+
+              <div class="faq-item">
+                  <div class="faq-question">
+                      <span>What technology do I need to participate?</span>
+                      <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <div class="faq-answer">
+                      <p>You'll need a computer or tablet with reliable internet access. Most coursework can be completed through our web platform or mobile app. Some technical programs may have specific software requirements, which will be clearly listed in the course details. Our system automatically checks your device compatibility during onboarding and provides guidance for any needed upgrades.</p>
+                  </div>
+              </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 3rem;">
+              <p>Still have questions? <a href="#" class="text-primary">Contact our support team</a> for personalized assistance.</p>
+          </div>
+      </div>
+  </section>
+
+  <!-- Search Courses Section -->
+  <section class="search-courses">
+      <div class="container">
+          <div class="search-container">
+              <input type="text" class="search-input" placeholder="Search for courses, topics, or instructors...">
+              <button class="search-btn">
+                  <i class="fas fa-search"></i>
+              </button>
+          </div>
+      </div>
+  </section>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-modal="true" aria-label="Cookie Consent">
+      <div class="cookie-text">
+          <p>We use cookies to enhance your experience on our website. By continuing to browse, you agree to our use of cookies. Learn more in our <a href="#" class="text-primary">Privacy Policy</a>.</p>
+      </div>
+      <div class="cookie-btns">
+          <button class="btn btn-outline" id="cookieDecline" type="button">Decline</button>
+          <button class="btn btn-primary" id="cookieAccept" type="button">Accept</button>
+          <button class="btn btn-outline" id="cookieClose" type="button" aria-label="Close Cookie Banner">Close</button>
+      </div>
+  </div>
+  <script>
+    // Accessibility: allow ESC to close banner
+    document.addEventListener('keydown', function(e) {
+      const banner = document.getElementById('cookieBanner');
+      if (banner.classList.contains('active') && (e.key === 'Escape' || e.key === 'Esc')) {
+        banner.classList.remove('active');
+      }
+    });
+    // Optional: close button for accessibility
+    document.getElementById('cookieClose').addEventListener('click', function() {
+      document.getElementById('cookieBanner').classList.remove('active');
+    });
+
+    // Show close button when banner is active, hide otherwise
+    const cookieBannerEl = document.getElementById('cookieBanner');
+    const cookieClose = document.getElementById('cookieClose');
+    const observer = new MutationObserver(function() {
+      if (cookieBannerEl.classList.contains('active')) {
+        cookieClose.style.display = '';
+      } else {
+        cookieClose.style.display = 'none';
+      }
+    });
+    observer.observe(cookieBannerEl, { attributes: true, attributeFilter: ['class'] });
+  </script>
+
+  <!-- Footer -->
+  <footer>
+      <div class="container">
+          <div class="footer-container">
+              <div class="footer-col">
+                  <div class="footer-logo">
+                      <img src="https://via.placeholder.com/40" alt="The Box Logo" class="footer-logo-img">
+                      <span class="footer-logo-text">The Box</span>
+                  </div>
+                  <p class="footer-about">The Box is a premier global learning platform that partners with top universities to deliver cutting-edge education powered by AI. Our mission is to make world-class education accessible to everyone, everywhere.</p>
+                  <div class="footer-social">
+                      <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                      <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                  </div>
+              </div>
+
+              <div class="footer-col">
+                  <h3 class="footer-title">Quick Links</h3>
+                  <div class="footer-links">
+                      <a href="#" class="footer-link">About Us</a>
+                      <a href="#" class="footer-link">Our Team</a>
+                      <a href="#" class="footer-link">Careers</a>
+                      <a href="#" class="footer-link">Press</a>
+                      <a href="#" class="footer-link">Blog</a>
+                      <a href="#" class="footer-link">Contact</a>
+                  </div>
+              </div>
+
+              <div class="footer-col">
+                  <h3 class="footer-title">Programs</h3>
+                  <div class="footer-links">
+                      <a href="#" class="footer-link">Degree Programs</a>
+                      <a href="#" class="footer-link">Professional Certificates</a>
+                      <a href="#" class="footer-link">Short Courses</a>
+                      <a href="#" class="footer-link">Executive Education</a>
+                      <a href="#" class="footer-link">Corporate Training</a>
+                      <a href="#" class="footer-link">K-12 Programs</a>
+                  </div>
+              </div>
+
+              <div class="footer-col">
+                  <h3 class="footer-title">Support</h3>
+                  <div class="footer-links">
+                      <a href="#" class="footer-link">Help Center</a>
+                      <a href="#" class="footer-link">FAQ</a>
+                      <a href="#" class="footer-link">Technical Support</a>
+                      <a href="#" class="footer-link">Accessibility</a>
+                      <a href="#" class="footer-link">Feedback</a>
+                      <a href="#" class="footer-link">Status</a>
+                  </div>
+              </div>
+
+              <div class="footer-col">
+                  <h3 class="footer-title">Legal</h3>
+                  <div class="footer-links">
+                      <a href="#" class="footer-link">Terms of Service</a>
+                      <a href="#" class="footer-link">Privacy Policy</a>
+                      <a href="#" class="footer-link">Cookie Policy</a>
+                      <a href="#" class="footer-link">GDPR</a>
+                      <a href="#" class="footer-link">Honor Code</a>
+                      <a href="#" class="footer-link">Community Guidelines</a>
+                  </div>
+              </div>
+
+              <div class="footer-col">
+                  <h3 class="footer-title">Newsletter</h3>
+                  <div class="footer-newsletter">
+                      <p>Subscribe to get updates on new courses, features, and events.</p>
+                      <form class="newsletter-form">
+                          <input type="email" class="newsletter-input" placeholder="Your email address">
+                          <button type="submit" class="newsletter-btn">
+                              <i class="fas fa-paper-plane"></i>
+                          </button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+          <div class="footer-bottom">
+              <p>&copy; 2025 The Box. All rights reserved. Various trademarks held by their respective owners.</p>
+          </div>
+      </div>
+  </footer>
+
+<!-- AI Chatbot - Advanced Modern UI (Responsive & Enhanced) -->
+<div class="chatbot-container" id="chatbotContainer" aria-label="AI Chatbot" tabindex="-1">
+    <div class="chatbot-header">
+        <div class="chatbot-title">
+            <i class="fas fa-robot"></i>
+            <span>The Box AI Assistant</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button class="chatbot-close" id="chatbotMinimize" title="Minimize" aria-label="Minimize Chatbot">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button class="chatbot-close" id="chatbotClose" title="Close" aria-label="Close Chatbot">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="chatbot-body" id="chatbotBody">
+        <div class="chatbot-message bot">
+            <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="AI" style="width:32px;height:32px;border-radius:50%;background:#fff;">
+                <div>
+                    <p><strong>Hello! I'm The Box AI Assistant.</strong> 👋<br>
+                    How can I help you today? Try these quick actions:</p>
+                    <div class="chatbot-quick-actions">
+                        <button class="btn btn-outline btn-sm chatbot-quick" data-msg="Recommend me a course">🎓 Recommend a course</button>
+                        <button class="btn btn-outline btn-sm chatbot-quick" data-msg="How do I apply?">📝 Admissions Help</button>
+                        <button class="btn btn-outline btn-sm chatbot-quick" data-msg="I need technical support">💻 Tech Support</button>
+                        <button class="btn btn-outline btn-sm chatbot-quick" data-msg="Tell me about AI learning">🤖 AI Learning</button>
+                    </div>
+                    <ul class="chatbot-quick-list"></ul>
+                        <li>Course recommendations</li>
+                        <li>Admissions process</li>
+                        <li>Technical support</li>
+                        <li>Account questions</li>
+                        <li>Platform features</li>
+                    </ul>
+                    <span class="chatbot-message-time">Just now</span>
+                </div>
+            </div>
+        </div>
+        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    </div>
+    <div class="chatbot-input-container" style="display: flex; align-items: center; gap: 0.5rem;">
+        <input type="text" class="chatbot-input-field" id="chatbotInput" placeholder="Type your message..." aria-label="Type your message">
+        <button class="chatbot-send" id="chatbotSend" title="Send" aria-label="Send Message">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+        <button class="chatbot-send" id="chatbotMic" title="Voice input" aria-label="Voice Input" style="background:var(--bg-tertiary);color:var(--primary-color);">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <button class="chatbot-send" id="chatbotAttach" title="Attach file" aria-label="Attach File" style="background:var(--bg-tertiary);color:var(--primary-color);">
+            <i class="fas fa-paperclip"></i>
+        </button>
+    </div>
+</div>
+
+<button class="chatbot-btn" id="chatbotBtn" title="Chat with The Box Assistant" aria-label="Open Chatbot">
+    <i class="fas fa-comment-dots"></i>
+</button>
+
+<style>
+/* Chatbot Responsive & Modern Enhancements */
+.chatbot-container {
+    max-width: 380px;
+    width: 100%;
+    min-width: 0;
+    right: 2rem;
+    bottom: 100px;
+    font-size: 1rem;
+    box-shadow: var(--shadow-xl);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+@media (max-width: 600px) {
+    .chatbot-container {
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        max-width: 100vw;
+        border-radius: 16px 16px 0 0;
+        min-width: 0;
+    }
+    .chatbot-btn {
+        right: 1rem;
+        bottom: 1rem;
+    }
+}
+.chatbot-header {
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
+}
+.chatbot-title {
+    font-size: 1.1rem;
+    gap: 0.5rem;
+}
+.chatbot-body {
+    padding: 1rem 1rem 0.5rem 1rem;
+    gap: 0.75rem;
+    min-height: 220px;
+    max-height: 350px;
+    overflow-y: auto;
+    background: var(--bg-primary);
+}
+@media (max-width: 600px) {
+    .chatbot-body {
+        min-height: 120px;
+        max-height: 40vh;
+        padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+    }
+}
+.chatbot-message.bot, .chatbot-message.user {
+    font-size: 1rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1rem 1.5rem 1rem;
+    word-break: break-word;
+}
+.chatbot-message.bot {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+.chatbot-message.user {
+    background: var(--primary-color);
+    color: #fff;
+    align-self: flex-end;
+}
+.chatbot-message-time {
+    font-size: 0.75em;
+    color: var(--text-secondary);
+    position: absolute;
+    bottom: 6px;
+    right: 18px;
+}
+.chatbot-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+.chatbot-quick-list {
+    margin: 0.5rem 0 0 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95em;
+    padding-left: 1em;
+}
+.btn-sm {
+    font-size: 0.9em;
+    padding: 0.4em 1em;
+    border-radius: var(--radius);
+    line-height: 1.2;
+}
+.chatbot-input-container {
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    gap: 0.5rem;
+}
+@media (max-width: 600px) {
+    .chatbot-input-container {
+        padding: 0.5rem 0.5rem;
+        gap: 0.25rem;
+    }
+    .chatbot-input-field {
+        font-size: 1em;
+    }
+}
+.chatbot-input-field {
+    flex: 1;
+    min-width: 0;
+    font-size: 1em;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    padding: 0.7em 1em;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+.chatbot-send {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
+    border: none;
+    background: var(--gradient-primary);
+    color: #fff;
+    transition: var(--transition);
+}
+.chatbot-send[style*="background:var(--bg-tertiary)"] {
+    background: var(--bg-tertiary) !important;
+    color: var(--primary-color) !important;
+}
+.chatbot-send:active {
+    opacity: 0.8;
+}
+.chatbot-close {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1em;
+}
+@media (max-width: 400px) {
+    .chatbot-container {
+        max-width: 100vw;
+        min-width: 0;
+        border-radius: 10px 10px 0 0;
+    }
+    .chatbot-header {
+        font-size: 1em;
+        padding: 0.75rem 0.5rem;
+    }
+}
+</style>
+
+<script>
+    // Minimize/Restore Chatbot
+    const chatbotMinimize = document.getElementById('chatbotMinimize');
+    const chatbotContainerMin = document.getElementById('chatbotContainer');
+    let chatbotMinimized = false;
+    chatbotMinimize.addEventListener('click', function() {
+        chatbotMinimized = !chatbotMinimized;
+        if (chatbotMinimized) {
+            chatbotContainerMin.style.height = '60px';
+            chatbotContainerMin.style.overflow = 'hidden';
+            chatbotContainerMin.style.minHeight = '0';
+            chatbotContainerMin.querySelector('.chatbot-body').style.display = 'none';
+            chatbotContainerMin.querySelector('.chatbot-input-container').style.display = 'none';
+        } else {
+            chatbotContainerMin.style.height = '';
+            chatbotContainerMin.style.overflow = '';
+            chatbotContainerMin.querySelector('.chatbot-body').style.display = '';
+            chatbotContainerMin.querySelector('.chatbot-input-container').style.display = '';
+        }
+    });
+
+    // Quick Reply Buttons
+    document.querySelectorAll('.chatbot-quick').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const msg = this.getAttribute('data-msg');
+            document.getElementById('chatbotInput').value = msg;
+            document.getElementById('chatbotSend').click();
+        });
+    });
+
+    // Voice Input (demo only)
+    document.getElementById('chatbotMic').addEventListener('click', function() {
+        alert('Voice input is coming soon!');
+    });
+
+    // Attach File (demo only)
+    document.getElementById('chatbotAttach').addEventListener('click', function() {
+        alert('File attachment is coming soon!');
+    });
+</script>
+
+  <!-- JavaScript -->
+  <script>
+      // Preloader
+      window.addEventListener('load', function() {
+          const preloader = document.getElementById('preloader');
+          preloader.style.opacity = '0';
+          preloader.style.visibility = 'hidden';
+          
+          // Show cookie banner after 2 seconds
+          setTimeout(() => {
+              const cookieBanner = document.getElementById('cookieBanner');
+              cookieBanner.classList.add('active');
+          }, 2000);
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+      
+      function toggleTheme() {
+          document.body.classList.toggle('dark-mode');
+          const isDark = document.body.classList.contains('dark-mode');
+          
+          // Update icon
+          const icon = isDark ? 'fa-sun' : 'fa-moon';
+          themeToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+          mobileThemeToggle.innerHTML = `<i class="fas ${icon}"></i>`;
+          
+          // Save preference to localStorage
+          localStorage.setItem('darkMode', isDark);
+      }
+      
+      // Check for saved theme preference
+      if (localStorage.getItem('darkMode') === 'true') {
+          document.body.classList.add('dark-mode');
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      
+      themeToggle.addEventListener('click', toggleTheme);
+      mobileThemeToggle.addEventListener('click', toggleTheme);
+
+      // Mobile Navigation
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobileNav');
+      const overlay = document.getElementById('overlay');
+      
+      hamburger.addEventListener('click', function() {
+          this.classList.toggle('active');
+          mobileNav.classList.toggle('active');
+          overlay.classList.toggle('active');
+          document.body.style.overflow = this.classList.contains('active') ? 'hidden' : '';
+      });
+      
+      overlay.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          mobileNav.classList.remove('active');
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+      });
+      
+      // Mobile Dropdown Toggle
+      const dropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+      dropdownBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+              const menu = this.parentElement.nextElementSibling;
+              menu.classList.toggle('active');
+              this.querySelector('i').classList.toggle('fa-chevron-up');
+              this.querySelector('i').classList.toggle('fa-chevron-down');
+          });
+      });
+
+      // Course Filter
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const courseCards = document.querySelectorAll('.course-card');
+      
+      filterBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+              // Update active button
+              filterBtns.forEach(b => b.classList.remove('active'));
+              this.classList.add('active');
+              
+              const filter = this.dataset.filter;
+              
+              // Filter courses
+              courseCards.forEach(card => {
+                  if (filter === 'all' || card.dataset.category === filter) {
+                      card.style.display = 'block';
+                  } else {
+                      card.style.display = 'none';
+                  }
+              });
+          });
+      });
+
+      // FAQ Accordion
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+          question.addEventListener('click', function() {
+              const item = this.parentElement;
+              item.classList.toggle('active');
+              
+              // Close other open items
+              faqQuestions.forEach(q => {
+                  if (q !== this) {
+                      q.parentElement.classList.remove('active');
+                  }
+              });
+          });
+      });
+
+      // Testimonial Slider
+      const testimonialTrack = document.getElementById('testimonialTrack');
+      const testimonialDots = document.querySelectorAll('.testimonial-dot');
+      let currentSlide = 0;
+      
+      function goToSlide(index) {
+          testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+          
+          // Update dots
+          testimonialDots.forEach(dot => dot.classList.remove('active'));
+          testimonialDots[index].classList.add('active');
+          
+          currentSlide = index;
+      }
+      
+      testimonialDots.forEach(dot => {
+          dot.addEventListener('click', function() {
+              const slideIndex = parseInt(this.dataset.slide);
+              goToSlide(slideIndex);
+          });
+      });
+      
+      // Auto slide change
+      setInterval(() => {
+          currentSlide = (currentSlide + 1) % testimonialDots.length;
+          goToSlide(currentSlide);
+      }, 5000);
+
+      // Student Work Slideshow
+      const studentSlides = document.getElementById('studentSlides');
+      const studentDots = document.querySelectorAll('.student-dot');
+      const studentPrev = document.getElementById('studentPrev');
+      const studentNext = document.getElementById('studentNext');
+      let currentStudentSlide = 0;
+      
+      function goToStudentSlide(index) {
+          studentSlides.style.transform = `translateX(-${index * 100}%)`;
+          
+          // Update dots
+          studentDots.forEach(dot => dot.classList.remove('active'));
+          studentDots[index].classList.add('active');
+          
+          currentStudentSlide = index;
+      }
+      
+      studentDots.forEach(dot => {
+          dot.addEventListener('click', function() {
+              const slideIndex = parseInt(this.dataset.slide);
+              goToStudentSlide(slideIndex);
+          });
+      });
+      
+      studentPrev.addEventListener('click', function() {
+          currentStudentSlide = (currentStudentSlide - 1 + studentDots.length) % studentDots.length;
+          goToStudentSlide(currentStudentSlide);
+      });
+      
+      studentNext.addEventListener('click', function() {
+          currentStudentSlide = (currentStudentSlide + 1) % studentDots.length;
+          goToStudentSlide(currentStudentSlide);
+      });
+      
+      // Auto slide change for student work
+      setInterval(() => {
+          currentStudentSlide = (currentStudentSlide + 1) % studentDots.length;
+          goToStudentSlide(currentStudentSlide);
+      }, 7000);
+
+      // Waitlist Tabs
+      const waitlistTabs = document.querySelectorAll('.waitlist-tab');
+      const waitlistForms = document.querySelectorAll('.waitlist-form');
+      
+      waitlistTabs.forEach(tab => {
+          tab.addEventListener('click', function() {
+              const tabName = this.dataset.tab;
+              
+              // Update active tab
+              waitlistTabs.forEach(t => t.classList.remove('active'));
+              this.classList.add('active');
+              
+              // Show corresponding form
+              waitlistForms.forEach(form => {
+                  form.classList.remove('active');
+                  if (form.id === `${tabName}Form`) {
+                      form.classList.add('active');
+                  }
+              });
+          });
+      });
+
+      // Cookie Consent
+      const cookieAccept = document.getElementById('cookieAccept');
+      const cookieDecline = document.getElementById('cookieDecline');
+      // Use the same variable name as above to avoid redeclaration
+      // const cookieBanner = document.getElementById('cookieBanner');
+      
+      cookieAccept.addEventListener('click', function() {
+          localStorage.setItem('cookieConsent', 'accepted');
+          cookieBannerEl.classList.remove('active');
+      });
+      
+      cookieDecline.addEventListener('click', function() {
+          localStorage.setItem('cookieConsent', 'declined');
+          cookieBannerEl.classList.remove('active');
+      });
+      
+      // Check for previous consent
+      if (localStorage.getItem('cookieConsent')) {
+          cookieBannerEl.classList.remove('active');
+      }
+
+      // Chatbot
+      const chatbotBtn = document.getElementById('chatbotBtn');
+      const chatbotContainer = document.getElementById('chatbotContainer');
+      const chatbotClose = document.getElementById('chatbotClose');
+      const chatbotSend = document.getElementById('chatbotSend');
+      const chatbotInput = document.getElementById('chatbotInput');
+      const chatbotBody = document.getElementById('chatbotBody');
+      const typingIndicator = document.getElementById('typingIndicator');
+      
+      chatbotBtn.addEventListener('click', function() {
+          chatbotContainer.classList.toggle('active');
+      });
+      
+      chatbotClose.addEventListener('click', function() {
+          chatbotContainer.classList.remove('active');
+      });
+      
+      function addBotMessage(text) {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = 'chatbot-message bot';
+          messageDiv.innerHTML = `<p>${text}</p><span class="chatbot-message-time">Just now</span>`;
+          chatbotBody.appendChild(messageDiv);
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }
+      
+      function addUserMessage(text) {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = 'chatbot-message user';
+          messageDiv.innerHTML = `<p>${text}</p><span class="chatbot-message-time">Just now</span>`;
+          chatbotBody.appendChild(messageDiv);
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+      }
+      
+      function simulateTyping() {
+          typingIndicator.style.display = 'flex';
+          chatbotBody.scrollTop = chatbotBody.scrollHeight;
+          
+          setTimeout(() => {
+              typingIndicator.style.display = 'none';
+              addBotMessage("I'm sorry, I'm just a demo chatbot. In a real implementation, I would connect to a backend service to provide helpful responses to your questions about The Box platform.");
+          }, 1500);
+      }
+      
+      chatbotSend.addEventListener('click', function() {
+          const message = chatbotInput.value.trim();
+          if (message) {
+              addUserMessage(message);
+              chatbotInput.value = '';
+              simulateTyping();
+          }
+      });
+      
+      chatbotInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+              const message = chatbotInput.value.trim();
+              if (message) {
+                  addUserMessage(message);
+                  chatbotInput.value = '';
+                  simulateTyping();
+              }
+          }
+      });
+
+      // Form Submissions (demo only)
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+          form.addEventListener('submit', function(e) {
+              e.preventDefault();
+              alert('Thank you for your submission! This is a demo form and no data will be saved.');
+              this.reset();
+          });
+      });
+
+      // Floating Cursor Effect
+      const cursorEffect = document.getElementById('cursorEffect');
+      
+      document.addEventListener('mousemove', function(e) {
+          cursorEffect.style.left = e.clientX + 'px';
+          cursorEffect.style.top = e.clientY + 'px';
+      });
+      
+      document.addEventListener('mousedown', function() {
+          cursorEffect.classList.add('active');
+      });
+      
+      document.addEventListener('mouseup', function() {
+          cursorEffect.classList.remove('active');
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              const targetId = this.getAttribute('href');
+              if (targetId === '#') return;
+              
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                  // Close mobile menu if open
+                  hamburger.classList.remove('active');
+                  mobileNav.classList.remove('active');
+                  overlay.classList.remove('active');
+                  document.body.style.overflow = '';
+                  
+                  window.scrollTo({
+                      top: targetElement.offsetTop - 80,
+                      behavior: 'smooth'
+                  });
+              }
+          });
+      });
+
+      // Scroll reveal animation
+      function animateOnScroll() {
+          const elements = document.querySelectorAll('.section-title, .section-subtitle, .feature-card, .course-card, .ai-feature, .plan-card, .faq-item');
+          
+          elements.forEach(element => {
+              const elementPosition = element.getBoundingClientRect().top;
+              const screenPosition = window.innerHeight / 1.2;
+              
+              if (elementPosition < screenPosition) {
+                  element.style.opacity = '1';
+                  element.style.transform = 'translateY(0)';
+              }
+          });
+      }
+      
+      // Set initial state for animated elements
+      document.querySelectorAll('.section-title, .section-subtitle, .feature-card, .course-card, .ai-feature, .plan-card, .faq-item').forEach(element => {
+          element.style.opacity = '0';
+          element.style.transform = 'translateY(20px)';
+          element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      });
+      
+      window.addEventListener('load', animateOnScroll);
+      window.addEventListener('scroll', animateOnScroll);
+
+      // Generate floating particles
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          
+          // Random properties
+          const size = Math.random() * 5 + 2;
+          const posX = Math.random() * 100;
+          const posY = Math.random() * 100;
+          const delay = Math.random() * 5;
+          const duration = Math.random() * 10 + 10;
+          const opacity = Math.random() * 0.5 + 0.1;
+          
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.left = `${posX}%`;
+          particle.style.top = `${posY}%`;
+          particle.style.animationDelay = `${delay}s`;
+          particle.style.animationDuration = `${duration}s`;
+          particle.style.opacity = opacity;
+          
+          particlesContainer.appendChild(particle);
+      }
+  </script>
+</body>
+</html>
